@@ -1,6 +1,6 @@
-# 🚀 InsightStream AI
+# 🚀 News AI
 
-**InsightStream AI** is a high-performance research dashboard that aggregates global news and delivers instant AI-generated summaries. It is engineered for speed, using advanced React patterns to efficiently handle massive data streams at 60fps.
+**News AI** is a high-performance research dashboard that aggregates global news and delivers instant AI-generated summaries. It is engineered for speed, using advanced React patterns to efficiently handle massive data streams at 60fps.
 
 ---
 

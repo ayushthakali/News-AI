@@ -18,23 +18,16 @@ interface NewsResponse {
   articles: Article[];
 }
 
-const API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
-
-const staggeredBaseQuery = retry(
-  fetchBaseQuery({ baseUrl: "https://newsapi.org/v2/" }),
-  {
-    maxRetries: 5, // Try 3 extra times before giving up
-  },
-);
+const staggeredBaseQuery = retry(fetchBaseQuery({ baseUrl: "/api" }), {
+  maxRetries: 5, // Try 3 extra times before giving up
+});
 
 export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: staggeredBaseQuery,
-  tagTypes: ["News"],
   endpoints: (builder) => ({
     getNews: builder.query<NewsResponse, { q: string; page: number }>({
-      query: ({ q, page }) =>
-        `everything?q=${q || "technology"}&page=${page}&pageSize=20&apiKey=${API_KEY}`,
+      query: ({ q, page }) => `news?q=${q || "technology"}&page=${page}`,
 
       //By default RTK Query uses ALL arguments as the cache key. This makes page 1 and page 2 separate entries. WITH serializeQueryArgs — ignore page, only use q as the key so same cache entry(key) for all pages
       serializeQueryArgs: ({ queryArgs }) => queryArgs.q, //return whatever you want as the cache key

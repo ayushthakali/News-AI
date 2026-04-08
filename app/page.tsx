@@ -12,7 +12,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebounce(searchTerm, 500);
 
-  const { data, isFetching, isLoading, error } = useGetNewsQuery(
+  const { data, isFetching, isLoading, error, isError } = useGetNewsQuery(
     { q: debouncedSearch || "latest", page },
     { skip: debouncedSearch.length < 3 && debouncedSearch !== "" },
   );
@@ -27,6 +27,15 @@ export default function Home() {
     setPage(1);
     setSearchTerm(value);
   };
+
+  if (isError) {
+    const errorMessage = (error as any)?.data?.error || "Something went wrong";
+    return (
+      <div className="p-8 border border-red-900/50 bg-red-900/10 rounded-2xl text-center">
+        <p className="text-red-400 font-medium">Error: {errorMessage}</p>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-black text-white p-4 md:p-8">
@@ -50,15 +59,6 @@ export default function Home() {
             <Loader2 className="animate-spin size-10 text-violet-500" />
             <p className="animate-pulse font-mono text-xs uppercase tracking-widest">
               Initializing Neural Stream...
-            </p>
-          </div>
-        ) : error ? (
-          <div className="p-8 border border-red-900/50 bg-red-900/10 rounded-2xl text-center">
-            <p className="text-red-400 font-medium">
-              Quota Exceeded or API Error
-            </p>
-            <p className="text-red-400/60 text-sm">
-              Please check your NewsAPI key.
             </p>
           </div>
         ) : (

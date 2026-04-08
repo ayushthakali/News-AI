@@ -33,7 +33,7 @@ export default function Home() {
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="text-center space-y-2">
           <h1 className="text-5xl font-extrabold tracking-tighter bg-gradient-to-r from-violet-400 via-fuchsia-500 to-amber-400 bg-clip-text text-transparent">
-            InsightStream AI
+            News AI
           </h1>
           <p className="text-zinc-500 font-medium">
             Real-time research engine powered by Gemini AI
